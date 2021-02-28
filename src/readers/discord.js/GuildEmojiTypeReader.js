@@ -31,7 +31,7 @@ module.exports = new class GuildEmojiTypeReader extends TypeReader {
     let id = val.match(Constants.regexes.emoji);
 
     if (id != null || (id = val.match(Constants.regexes.id)) != null) {
-      const emoji = msg.guild.emojis.get(id[id.length - 1]);
+      const emoji = msg.guild.emojis.cache.get(id[id.length - 1]);
 
       if (emoji == null)
         return TypeReaderResult.fromError(cmd, "Server emoji not found.");
@@ -43,7 +43,7 @@ module.exports = new class GuildEmojiTypeReader extends TypeReader {
 
     return TypeReaderUtil.handleMatches(
       cmd,
-      msg.guild.emojis.filterValues(
+      msg.guild.emojis.cache.filterValues(
         emoji => emoji.name.toLowerCase().startsWith(lowerVal)
       ),
       "Server emoji not found.",

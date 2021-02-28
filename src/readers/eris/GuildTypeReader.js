@@ -41,7 +41,7 @@ module.exports = new class GuildTypeReader extends TypeReader {
     const id = val.match(Constants.regexes.id);
 
     if (id != null) {
-      const guild = client.guilds.get(id[0]);
+      const guild = client.guilds.cache.get(id[0]);
 
       if (guild != null)
         return TypeReaderResult.fromError(cmd, "Server not found.");

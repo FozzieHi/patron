@@ -40,7 +40,7 @@ is disabled."
     }
 
     if (id != null || (id = val.match(Constants.regexes.id)) != null) {
-      const member = msg.guild.members.get(id[id.length - 1]);
+      const member = msg.guild.members.cache.get(id[id.length - 1]);
 
       if (member == null)
         return TypeReaderResult.fromError(cmd, "Member not found.");
@@ -53,7 +53,7 @@ is disabled."
     if (Constants.regexes.userTag.test(val)) {
       return TypeReaderUtil.handleMatches(
         cmd,
-        msg.guild.members.filterValues(
+        msg.guild.members.cache.filterValues(
           member => member.user.tag.toLowerCase() === lowerVal
         ),
         "Member not found.",
@@ -63,7 +63,7 @@ is disabled."
 
     return TypeReaderUtil.handleMatches(
       cmd,
-      msg.guild.members.filterValues(
+      msg.guild.members.cache.filterValues(
         member => member.user.username.toLowerCase().startsWith(lowerVal)
           || (member.nickname != null
           && member.nickname.toLowerCase().startsWith(lowerVal))

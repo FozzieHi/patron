@@ -31,7 +31,7 @@ module.exports = new class RoleTypeReader extends TypeReader {
     let id = val.match(Constants.regexes.roleMention);
 
     if (id != null || (id = val.match(Constants.regexes.id)) != null) {
-      const role = msg.guild.roles.get(id[id.length - 1]);
+      const role = msg.guild.roles.cache.get(id[id.length - 1]);
 
       if (role != null)
         return TypeReaderResult.fromSuccess(role);

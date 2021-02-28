@@ -33,7 +33,7 @@ multiple processes."
 }
 
 async function matchFromId(cmd, client, id) {
-  let channel = client.channels.get(id);
+  let channel = client.channels.cache.get(id);
 
   if (channel == null) {
     try {
@@ -63,7 +63,7 @@ async function matchFromId(cmd, client, id) {
 }
 
 async function matchWithGuild(msg, cmd, lowerVal) {
-  const matches = msg.guild.members.filterValues(
+  const matches = msg.guild.members.cache.filterValues(
     member => member.user.username.toLowerCase().includes(lowerVal)
       || (member.nickname != null
       && member.nickname.toLowerCase().includes(lowerVal))
@@ -114,7 +114,7 @@ module.exports = new class DMChannelTypeReader extends TypeReader {
 
       return TypeReaderResult.fromSuccess(await user.getDMChannel());
     } else if (Constants.regexes.userTag.test(val)) {
-      const matches = msg.client.users.filterValues(
+      const matches = msg.client.users.cache.filterValues(
         user => user.tag.toLowerCase() === lowerVal
       );
 

@@ -63,7 +63,7 @@ multiple clients."
     if (Constants.regexes.userTag.test(val)) {
       return TypeReaderUtil.handleMatches(
         cmd,
-        msg.client.users.filterValues(
+        msg.client.users.cache.filterValues(
           user => user.tag.toLowerCase() === lowerVal
         ),
         "User not found.",
@@ -75,7 +75,7 @@ multiple clients."
 
     return TypeReaderUtil.handleMatches(
       cmd,
-      msg.guild.members.filterValues(
+      msg.guild.members.cache.filterValues(
         member => member.user.username.toLowerCase().includes(lowerVal)
           || (member.nickname != null
           && member.nickname.toLowerCase().includes(lowerVal))

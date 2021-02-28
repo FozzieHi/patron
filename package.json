@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LJNeon/patron.js.git"
+    "url": "git+https://github.com/FozzieHi/patron.js.git"
   },
   "keywords": [
     "bot",
@@ -28,7 +28,6 @@
     "url": "https://github.com/LJNeon/patron.js/issues"
   },
   "homepage": "https://github.com/LJNeon/patron.js#readme",
-  "dependencies": {},
   "devDependencies": {
     "eslint": "^5.16.0",
     "jsdoc": "^3.6.3",

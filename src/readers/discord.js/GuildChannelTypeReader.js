@@ -31,7 +31,7 @@ module.exports = new class GuildChannelTypeReader extends TypeReader {
     let id = val.match(Constants.regexes.channelMention);
 
     if (id != null || (id = val.match(Constants.regexes.id)) != null) {
-      const channel = msg.guild.channels.get(id[id.length - 1]);
+      const channel = msg.guild.channels.cache.get(id[id.length - 1]);
 
       if (channel != null)
         return TypeReaderResult.fromSuccess(channel);
@@ -43,7 +43,7 @@ module.exports = new class GuildChannelTypeReader extends TypeReader {
 
     return TypeReaderUtil.handleMatches(
       cmd,
-      msg.guild.channels.filterValues(
+      msg.guild.channels.cache.filterValues(
         channel => channel.name.toLowerCase().startsWith(lowerVal)
       ),
       "Guild channel not found."

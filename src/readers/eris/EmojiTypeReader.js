@@ -33,7 +33,7 @@ module.exports = new class EmojiTypeReader extends TypeReader {
     let id = val.match(Constants.regexes.emoji);
 
     for (const guild of client.guilds.values())
-      emojis.push(...guild.emojis);
+      emojis.push(...guild.emojis.cache);
 
     if (id != null || (id = val.match(Constants.regexes.id)) != null) {
       id = id[id.length - 1];

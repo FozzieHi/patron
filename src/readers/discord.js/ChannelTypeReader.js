@@ -43,7 +43,7 @@ multiple processes"
     if (id != null || (id = val.match(Constants.regexes.id)) != null) {
       id = id[id.length - 1];
 
-      let channel = client.channels.get(id);
+      let channel = client.channels.cache.get(id);
 
       if (channel != null)
         return TypeReaderResult.fromSuccess(channel);
@@ -69,7 +69,7 @@ multiple processes"
 
     return TypeReaderUtil.handleMatches(
       cmd,
-      msg.guild.channels.filterValues(
+      msg.guild.channels.cache.filterValues(
         channel => channel.name.toLowerCase().startsWith(lowerVal)
       ),
       "Channel not found."

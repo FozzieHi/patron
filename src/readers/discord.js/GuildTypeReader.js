@@ -40,7 +40,7 @@ split between multiple processes."
     const id = val.match(Constants.regexes.id);
 
     if (id != null) {
-      const guild = msg.client.guilds.get(id[0]);
+      const guild = msg.client.guilds.cache.get(id[0]);
 
       if (guild != null)
         return TypeReaderResult.fromError(cmd, "Server not found.");

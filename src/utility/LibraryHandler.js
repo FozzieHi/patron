@@ -80,10 +80,10 @@ module.exports = class LibraryHandler {
     switch (this.library) {
       case "discord.js": {
         const botMissingPerms = cmd.botPermissions.filter(
-          permission => !msg.guild.me.hasPermission(permission)
+          permission => !msg.guild.me.permissions.has(permission)
         );
         const memberMissingPerms = cmd.memberPermissions.filter(
-          permission => !msg.member.hasPermission(permission)
+          permission => !msg.member.permissions.has(permission)
         );
 
         if (msg.channel.type !== "text")
