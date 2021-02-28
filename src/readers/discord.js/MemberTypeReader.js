@@ -40,7 +40,7 @@ is disabled."
     }
 
     if (id != null || (id = val.match(Constants.regexes.id)) != null) {
-      const member = msg.guild.members.fetch(id[id.length - 1]);
+      const member = await msg.guild.members.fetch(id[id.length - 1]);
 
       if (member == null)
         return TypeReaderResult.fromError(cmd, "Member not found.");
