@@ -43,7 +43,7 @@ module.exports = new class RoleTypeReader extends TypeReader {
 
     return TypeReaderUtil.handleMatches(
       cmd,
-      msg.guild.roles.filterValues(
+      msg.guild.roles.cache.filterValues(
         r => r.name.toLowerCase().startsWith(lowerVal)
       ),
       "Role not found."
