@@ -28,7 +28,9 @@ async function parseId(client, cmd, id) {
 
   try {
     user = await client.users.fetch(id);
+    console.log(user);
   } catch (e) {
+    console.log(e);
     if (e.code !== Constants.errors.unknownUser)
       throw e;
   }
@@ -73,8 +75,6 @@ multiple clients."
     } else if (msg.guild == null) {
       return TypeReaderResult.fromError(cmd, "User not found.");
     }
-
-    console.log("read 1")
 
     return TypeReaderUtil.handleMatches(
       cmd,
