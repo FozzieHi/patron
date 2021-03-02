@@ -28,8 +28,10 @@ async function parseId(client, cmd, id) {
   try {
     user = await client.users.fetch(id);
   } catch (e) {
-    if (e.code !== Constants.errors.unknownUser)
-      throw e;
+    return TypeReaderResult.fromError(cmd, "e=" + e + " code=" + e.code);
+
+    // if (e.code !== Constants.errors.unknownUser)
+    //   throw e;
   }
 
   if (user == null)
