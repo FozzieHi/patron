@@ -30,14 +30,16 @@ async function parseId(client, cmd, id) {
     user = await client.users.fetch(id);
     console.log(user);
   } catch (e) {
-    console.log(e);
     if (e.code !== Constants.errors.unknownUser)
       throw e;
   }
 
+  console.log("parseId 2");
+
   if (user == null)
     return TypeReaderResult.fromError(cmd, "User not found.");
 
+  console.log("parseId 3");
   return TypeReaderResult.fromSuccess(user);
 }
 
