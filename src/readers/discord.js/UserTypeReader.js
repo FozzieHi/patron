@@ -24,14 +24,13 @@ let warningEmitted = false;
 
 async function parseId(client, cmd, id) {
   let user;
+  console.log("parseId 1");
 
   try {
     user = await client.users.fetch(id);
   } catch (e) {
-    return TypeReaderResult.fromError(cmd, "e=" + e + " code=" + e.code);
-
-    // if (e.code !== Constants.errors.unknownUser)
-    //   throw e;
+    if (e.code !== Constants.errors.unknownUser)
+      throw e;
   }
 
   if (user == null)
@@ -74,6 +73,8 @@ multiple clients."
     } else if (msg.guild == null) {
       return TypeReaderResult.fromError(cmd, "User not found.");
     }
+
+    console.log("read 1")
 
     return TypeReaderUtil.handleMatches(
       cmd,
