@@ -24,22 +24,17 @@ let warningEmitted = false;
 
 async function parseId(client, cmd, id) {
   let user;
-  console.log("parseId 1");
 
   try {
     user = await client.users.fetch(id);
-    console.log(user);
   } catch (e) {
     if (e.code !== Constants.errors.unknownUser)
       throw e;
   }
 
-  console.log("parseId 2");
-
   if (user == null)
     return TypeReaderResult.fromError(cmd, "User not found.");
 
-  console.log("parseId 3");
   return TypeReaderResult.fromSuccess(user);
 }
 
@@ -55,8 +50,8 @@ module.exports = new class UserTypeReader extends TypeReader {
     if (!warningEmitted && msg.client.shard != null) {
       warningEmitted = true;
       process.emitWarning(
-        "The user TypeReader is unreliable when shards are split between \
-multiple clients."
+          "The user TypeReader is unreliable when shards are split between \
+  multiple clients."
       );
     }
 
@@ -67,26 +62,26 @@ multiple clients."
 
     if (Constants.regexes.userTag.test(val)) {
       return TypeReaderUtil.handleMatches(
-        cmd,
-        msg.client.users.cache.filterValues(
-          user => user.tag.toLowerCase() === lowerVal
-        ),
-        "User not found.",
-        user => user.tag
+          cmd,
+          msg.client.users.cache.filterValues(
+              user => user.tag.toLowerCase() === lowerVal
+          ),
+          "User not found.",
+          user => user.tag
       );
     } else if (msg.guild == null) {
       return TypeReaderResult.fromError(cmd, "User not found.");
     }
 
     return TypeReaderUtil.handleMatches(
-      cmd,
-      msg.guild.members.cache.filterValues(
-        member => member.user.username.toLowerCase().includes(lowerVal)
-          || (member.nickname != null
-          && member.nickname.toLowerCase().includes(lowerVal))
-      ).map(member => member.user),
-      "User not found.",
-      user => user.tag
+        cmd,
+        msg.guild.members.cache.filterValues(
+            member => member.user.username.toLowerCase().includes(lowerVal)
+                || (member.nickname != null
+                    && member.nickname.toLowerCase().includes(lowerVal))
+        ).map(member => member.user),
+        "User not found.",
+        user => user.tag
     );
   }
 }();
