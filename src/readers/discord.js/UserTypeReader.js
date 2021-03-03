@@ -50,7 +50,7 @@ module.exports = new class UserTypeReader extends TypeReader {
     if (!warningEmitted && msg.client.shard != null) {
       warningEmitted = true;
       process.emitWarning(
-          "The user TypeReader is unreliable when shards are split between \
+        "The user TypeReader is unreliable when shards are split between \
   multiple clients."
       );
     }
@@ -62,26 +62,26 @@ module.exports = new class UserTypeReader extends TypeReader {
 
     if (Constants.regexes.userTag.test(val)) {
       return TypeReaderUtil.handleMatches(
-          cmd,
-          msg.client.users.cache.filterValues(
-              user => user.tag.toLowerCase() === lowerVal
-          ),
-          "User not found.",
-          user => user.tag
+        cmd,
+        msg.client.users.cache.filterValues(
+          user => user.tag.toLowerCase() === lowerVal
+        ),
+        "User not found.",
+        user => user.tag
       );
     } else if (msg.guild == null) {
       return TypeReaderResult.fromError(cmd, "User not found.");
     }
 
     return TypeReaderUtil.handleMatches(
-        cmd,
-        msg.guild.members.cache.filterValues(
-            member => member.user.username.toLowerCase().includes(lowerVal)
+      cmd,
+      msg.guild.members.cache.filterValues(
+        member => member.user.username.toLowerCase().includes(lowerVal)
                 || (member.nickname != null
                     && member.nickname.toLowerCase().includes(lowerVal))
-        ).map(member => member.user),
-        "User not found.",
-        user => user.tag
+      ).map(member => member.user),
+      "User not found.",
+      user => user.tag
     );
   }
 }();
